@@ -73,7 +73,10 @@ export class ItemManager {
 
         // 5. Update Items & Collision
         const aro = this.game.aro; // Access Aro from game instance
-        const aroHitBox = { x: aro.x, y: aro.y - aro.height / 2, width: aro.width * 0.6, height: aro.height * 0.6 };
+
+        // Dynamic Hitbox: If super speed, use wider hitbox (e.g. 2x width)
+        const hitWidth = aro.isSuperSpeed ? aro.width * 1.5 : aro.width * 0.6;
+        const aroHitBox = { x: aro.x, y: aro.y - aro.height / 2, width: hitWidth, height: aro.height * 0.6 };
 
         for (let i = this.items.length - 1; i >= 0; i--) {
             const item = this.items[i];

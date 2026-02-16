@@ -55,7 +55,13 @@ export class StartScreen extends Container {
         // Interaction to start
         this.eventMode = 'static';
         this.cursor = 'pointer';
-        this.on('pointerdown', () => this.game.startGame());
+        this.on('pointerdown', async () => {
+            // Request permission for mobile sensors
+            if (this.game.inputManager) {
+                await this.game.inputManager.requestPermission();
+            }
+            this.game.startGame();
+        });
 
         // Keyboard listener for Enter
         window.addEventListener('keydown', (e) => {
